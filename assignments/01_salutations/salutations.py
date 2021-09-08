@@ -45,15 +45,15 @@ def main():
     args = get_args()
     greeting = args.greeting 
     name = args.name
-    excited = args.excited
+    ending = args.excited
     
     if args.excited == 1:
-        excited = '!'
+        ending = '!'
         
-    if args.excited == 0:
-        excited = '.'
+    else:
+        ending = '.'
  
-    print(greeting+', '+name+excited)
+    print(greeting+', '+name+ending)
     
 # --------------------------------------------------
 
