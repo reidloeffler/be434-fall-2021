@@ -5,7 +5,6 @@ Date   : 2021-09-14
 Purpose: Rock the Casbah
 """
 import argparse
-#from typing_extensions import IntVar
 
 # --------------------------------------------------
 
@@ -13,8 +12,8 @@ def get_args():
     """ Get command-line arguments """
 
     parser = argparse.ArgumentParser(
-        description='Add numbers',
-        formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+        description ='Add numbers',
+        formatter_class = argparse.ArgumentDefaultsHelpFormatter)
 
     parser.add_argument('numbers',
                         metavar = 'INT',
@@ -29,7 +28,7 @@ def get_args():
 def find_sum(num_digits, nums):
     """ Find the total sum of the numbers entered """
 
-    sum =0
+    sum = 0
 
     for count in range (num_digits):
             sum = sum + nums[count]
@@ -44,13 +43,13 @@ def print_function(num_digits, nums, total_sum):
     for count in range (num_digits):
 
         if count == num_digits - 1:
-            print (nums[count], end ='')
-            print (" = ", end ='')
+            print (nums[count], end = '')
+            print (" = ", end = '')
             print (total_sum)
 
         else:    
-            print (nums[count], end ='')
-            print (' + ', end ='')
+            print (nums[count], end = '')
+            print (' + ', end = '')
 
 # --------------------------------------------------
 
