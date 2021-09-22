@@ -29,32 +29,6 @@ def get_args():
 # --------------------------------------------------A
 
 
-def print_function(num_lyrics, lyrics):
-    """ Print out associated lyrics """
-
-    for count in range(num_lyrics):
-
-        if lyrics[count] == 'Do':
-            print('Do, A deer, a female deer')
-        elif lyrics[count] == 'Re':
-            print('Re, A drop of golden sun')
-        elif lyrics[count] == 'Mi':
-            print('Mi, A name I call myself')
-        elif lyrics[count] == 'Fa':
-            print('Fa, A long long way to run')
-        elif lyrics[count] == 'Sol':
-            print('Sol, A needle pulling thread')
-        elif lyrics[count] == 'La':
-            print('La, A note to follow sol')
-        elif lyrics[count] == 'Ti':
-            print('Ti, A drink with jam and bread')
-        else:
-            print('I don\'t know "' + lyrics[count] + '"')
-
-
-# --------------------------------------------------
-
-
 def main():
     """ Make a jazz noise here """
 
@@ -62,7 +36,21 @@ def main():
     lyrics = args.lyrics
     num_lyrics = len(lyrics)
 
-    print_function(num_lyrics, lyrics)
+    outputs = dict(Do='Do, A deer, a female deer',
+                   Re='Re, A drop of golden sun',
+                   Mi='Mi, A name I call myself',
+                   Fa='Fa, A long long way to run',
+                   Sol='Sol, A needle pulling thread',
+                   La='La, A note to follow sol',
+                   Ti='Ti, A drink with jam and bread')
+
+    for count in range(num_lyrics):
+
+        if lyrics[count] in outputs:
+            print(outputs[lyrics[count]])
+
+        else:
+            print('I don\'t know "' + lyrics[count] + '"')
 
 
 # --------------------------------------------------
