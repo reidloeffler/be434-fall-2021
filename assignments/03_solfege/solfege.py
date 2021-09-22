@@ -11,7 +11,6 @@ import argparse
 
 
 def get_args():
-
     """ Get command-line arguments """
 
     parser = argparse.ArgumentParser(
@@ -27,7 +26,7 @@ def get_args():
     return parser.parse_args()
 
 
-# --------------------------------------------------
+# --------------------------------------------------A
 
 
 def print_function(num_lyrics, lyrics):
@@ -35,34 +34,22 @@ def print_function(num_lyrics, lyrics):
 
     for count in range(num_lyrics):
 
-        i = 0
-
-        while i == 0:
-
-            if lyrics[count] == 'Do':
-                print('Do, A deer, a female deer')
-                i += 1
-            if lyrics[count] == 'Re':
-                print('Re, A drop of golden sun')
-                i += 1
-            if lyrics[count] == 'Mi':
-                print('Mi, A name I call myself')
-                i += 1
-            if lyrics[count] == 'Fa':
-                print('Fa, A long long way to run')
-                i += 1
-            if lyrics[count] == 'Sol':
-                print('Sol, A needle pulling thread')
-                i += 1
-            if lyrics[count] == 'La':
-                print('La, A note to follow sol')
-                i += 1
-            if lyrics[count] == 'Ti':
-                print('Ti, A drink with jam and bread')
-                i += 1
-            if i == 0:
-                print('I don\'t know "' + lyrics[count] + '"')
-                i += 1
+        if lyrics[count] == 'Do':
+            print('Do, A deer, a female deer')
+        elif lyrics[count] == 'Re':
+            print('Re, A drop of golden sun')
+        elif lyrics[count] == 'Mi':
+            print('Mi, A name I call myself')
+        elif lyrics[count] == 'Fa':
+            print('Fa, A long long way to run')
+        elif lyrics[count] == 'Sol':
+            print('Sol, A needle pulling thread')
+        elif lyrics[count] == 'La':
+            print('La, A note to follow sol')
+        elif lyrics[count] == 'Ti':
+            print('Ti, A drink with jam and bread')
+        else:
+            print('I don\'t know "' + lyrics[count] + '"')
 
 
 # --------------------------------------------------
@@ -79,7 +66,6 @@ def main():
 
 
 # --------------------------------------------------
-
 
 if __name__ == '__main__':
     main()
