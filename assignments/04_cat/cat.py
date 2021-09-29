@@ -6,6 +6,7 @@ Purpose: Rock the Casbah
 """
 
 import argparse
+from io import FileIO
 
 # --------------------------------------------------
 
@@ -41,10 +42,10 @@ def main():
     args = get_args()
     files = args.file_input
     optional_num = args.number
-    num_files = len(files)
 
-    for num_file in range(num_files):
-        text = files[num_file].read()
+    for num_files, file_info in enumerate(files):
+        text = files[num_files].read()
+        file_name = FileIO(file_info.name)
         num_lines = 1
 
         for num_characters, characters in enumerate(text):
@@ -61,7 +62,10 @@ def main():
             else:
                 print(characters, end='')
 
+        file_name.close()
+
 
 # --------------------------------------------------
+
 if __name__ == '__main__':
     main()
