@@ -44,28 +44,22 @@ def main():
     num_files = len(files)
 
     for num_file in range(num_files):
+        text = files[num_file].read()
+        num_lines = 1
 
-        file_name = files[num_file].name
+        for num_characters, characters in enumerate(text):
 
-        with open(file_name, 'rt') as file_text:
-            text = file_text.read()
-            num_lines = 1
+            if text[num_characters - 1] == '\n' or num_characters == 0:
 
-            for num_characters, characters in enumerate(text):
+                if optional_num is True:
+                    print('     ', end='')
+                    print(num_lines, end='\t')
 
-                if text[num_characters - 1] == '\n' or num_characters == 0:
+                print(characters, end='')
+                num_lines += 1
 
-                    if optional_num is True:
-                        print('     ', end='')
-                        print(num_lines, end='\t')
-
-                    print(characters, end='')
-                    num_lines += 1
-
-                else:
-                    print(characters, end='')
-
-            file_text.close()
+            else:
+                print(characters, end='')
 
 
 # --------------------------------------------------
