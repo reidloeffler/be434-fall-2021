@@ -6,6 +6,7 @@ Purpose: Rock the Casbah
 """
 
 import argparse
+import sys
 
 
 # --------------------------------------------------
@@ -13,7 +14,7 @@ def get_args():
     """Get command-line arguments"""
 
     parser = argparse.ArgumentParser(
-        description='Rock the Casbah',
+        description='Find common words',
         formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 
     parser.add_argument('FILE1',
@@ -24,54 +25,46 @@ def get_args():
                         type=argparse.FileType('rt'),
                         help='Input file 1')
 
-    parser.add_argument(
-        '-o',
-        '--outfile',
-        help='Output file',
-        metavar='FILE',
-        type=argparse.FileType('wt'),
-        default="<_io.TextIOWrapper name='<stdout>' mode='w' encoding='utf-8'>"
-    )
+    parser.add_argument('-o',
+                        '--outfile',
+                        help='Output file',
+                        metavar='FILE',
+                        type=argparse.FileType('wt'),
+                        default=sys.stdout)
 
     return parser.parse_args()
 
 
 # --------------------------------------------------
+
+
 def main():
     """Make a jazz noise here"""
 
     args = get_args()
     FILE1 = args.FILE1
     FILE2 = args.FILE2
-    # outfile = args.outfile
+    outfile = args.outfile
+    # Variables from commandline arguments
 
-    common_words = []
-    file1 = list(FILE1)
-    file2 = list(FILE2)
-    text1 = ''
-    text2 = ''
-    length1 = len(file1)
-    length2 = len(file2)
+    words1 = set()
+    words2 = set()
+    # Empty list for each file
 
-    for i in range(length1):
-        text1 += file1[i]
+    for line in FILE1:
+        for word in line.split():
+            words1.add(word)
+    # Builds set containing all words from FILE1
 
-    for i in range(length2):
-        text2 += file2[i]
+    for line in FILE2:
+        for word in line.split():
+            words2.add(word)
+    # Builds set containing all words from FILE2
 
-    set1 = (text1.rstrip().split())
-    set2 = (text2.rstrip().split())
-    length3 = len(set1)
-
-    for i in range(length3):
-        if set1[i] in set2 and set1[i] not in common_words:
-            common_words.append(set1[i])
-
-    common_words = sorted(common_words)
-    length4 = len(common_words)
-
-    for i in range(length4):
-        print(common_words[i])
+    for word in words1:
+        if word in words2:
+            print(word, file=outfile)
+    # Compares contents of words1 and words2 to print common words
 
 
 # --------------------------------------------------
