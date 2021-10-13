@@ -76,7 +76,6 @@ def main():
         codon = codon.upper()
 
         if codon in codon_table:
-            # print (codon_table[codon], end = '')
             amino_acid += codon_table[codon]
 
         else:
