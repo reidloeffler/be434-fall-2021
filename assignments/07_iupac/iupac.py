@@ -43,42 +43,38 @@ def main():
     inputs = args.sequences
     outfile = args.outfile
     iupac_codes = {
-        'R': 'AG',
-        'Y': 'CT',
-        'S': 'GC',
-        'W': 'AT',
-        'K': 'GT',
-        'M': 'AC',
-        'B': 'CGT',
-        'D': 'AGT',
-        'H': 'ACT',
-        'V': 'ACG',
-        'N': 'ACGT'
+        'A': 'A',
+        'C': 'C',
+        'G': 'G',
+        'U': 'U',
+        'T': 'T',
+        'R': '[AG]',
+        'Y': '[CT]',
+        'S': '[GC]',
+        'W': '[AT]',
+        'K': '[GT]',
+        'M': '[AC]',
+        'B': '[CGT]',
+        'D': '[AGT]',
+        'H': '[ACT]',
+        'V': '[ACG]',
+        'N': '[ACGT]'
     }
 
-    for line in inputs:
-        for sequence in line.split():
-            # Iterates over each sequece inputed
+    for sequence in inputs:
+        # Iterates over each sequece inputed
 
-            print(sequence, end=' ', file=outfile)
-            # Prints origional sequence
+        translation = ''.join([(iupac_codes.get(base, '-'))
+                               for base in sequence])
+        # Iterates over the characters in each sequence
+        # Builds string containing seqence translation
 
-            for char in sequence:
-                # Iterates over the characters in each sequence
-
-                if char in iupac_codes:
-                    print('[' + iupac_codes[char] + ']', end='', file=outfile)
-                # Prints translated charaters
-
-                else:
-                    print(char, end='', file=outfile)
-                # Prints characters that were not translated
-
-            print('\n', end='', file=outfile)
-            # Starts next sequence translation on a new line
+        print(sequence, translation, file=outfile)
+        # Prints sequence with translation
 
     if outfile != sys.stdout:
         print('Done, see output in "' + outfile.name + '"')
+        # Prints output file name if not printing to stdout
 
 
 # --------------------------------------------------
