@@ -42,6 +42,26 @@ def get_args():
 # --------------------------------------------------
 
 
+def find_kmers(FILE, num_kmer):
+    """Builds kmer string and adds it to the kmers list, for FILE1 or FILE2s"""
+
+    kmers = []
+    # Empty list for kmers from each file
+
+    for line in FILE:
+        for word in line.split():
+            for word_char_num in range(len(word) - num_kmer + 1):
+                kmer = ''
+                for kmer_char_num in range(num_kmer):
+                    kmer += word[kmer_char_num + word_char_num]
+                kmers.append(kmer)
+
+    return kmers
+
+
+# --------------------------------------------------
+
+
 def main():
     """Make a jazz noise here"""
 
@@ -51,30 +71,11 @@ def main():
     num_kmer = args.kmer
     # Variables obtrained from command line input
 
-    kmers1 = []
-    kmers2 = []
+    kmers1 = find_kmers(FILE1, num_kmer)
+    kmers2 = find_kmers(FILE2, num_kmer)
+
     common_kmers = set()
-    # Empty list for kmers from each file
     # Empty set for common kmers
-
-    for line in FILE1:
-        for word in line.split():
-            for word_char_num in range(len(word) - num_kmer + 1):
-                kmer = ''
-                for kmer_char_num in range(num_kmer):
-                    kmer += word[kmer_char_num + word_char_num]
-                kmers1.append(kmer)
-    # Builds kmer string and adds it to the kmers1 list, for FILE1
-
-    for line in FILE2:
-        for word in line.split():
-            for word_char_num in range(len(word) - num_kmer + 1):
-                kmer = ''
-                for kmer_char_num in range(num_kmer):
-                    kmer += word[kmer_char_num + word_char_num]
-                kmers2.append(kmer)
-    # Builds kmer string and adds it to the kmers2 list, for FILE2
-
 
     for kmer in kmers1:
         if kmer in kmers2:
@@ -82,7 +83,7 @@ def main():
     # Builds a set containing kmers that are in kmers1 and kmers2
 
     for kmer in common_kmers:
-    # Iterates over the kmers in common_kmers
+        # Iterates over the kmers in common_kmers
 
         count1 = 0
         count2 = 0
