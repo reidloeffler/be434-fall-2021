@@ -6,7 +6,6 @@ Purpose: Assignment 8
 """
 
 import argparse
-import sys
 
 
 # --------------------------------------------------
@@ -31,12 +30,12 @@ def get_args():
                         type=int,
                         metavar='int ',
                         default=3)
-    
+
     args = parser.parse_args()
 
     if args.kmer < 1:
-        parser.error(('--kmer "' +str(args.kmer) +'" must be > 0'))
-    
+        parser.error(f'--kmer "{args.kmer}" must be > 0')
+
     return parser.parse_args()
 
 
@@ -50,62 +49,57 @@ def main():
     FILE1 = args.FILE1
     FILE2 = args.FILE2
     num_kmer = args.kmer
-    # Variables from commandline arguments
+    # Variables obtrained from command line input
 
-    words1 = []
-    words2 = []
-    kmers = set()
-    # Empty list for each file
-    # Set for kners 
+    kmers1 = []
+    kmers2 = []
+    common_kmers = set()
+    # Empty list for kmers from each file
+    # Empty set for common kmers
 
     for line in FILE1:
         for word in line.split():
-            words1.append(word)
-    # Builds list containing all words from FILE1
+            for word_char_num in range(len(word) - num_kmer + 1):
+                kmer = ''
+                for kmer_char_num in range(num_kmer):
+                    kmer += word[kmer_char_num + word_char_num]
+                kmers1.append(kmer)
+    # Builds kmer string and adds it to the kmers1 list, for FILE1
 
     for line in FILE2:
         for word in line.split():
-            words2.append(word)
-    # Builds list containing all words from FILE2
-
-    for word in set(words1):
-    # Iterates of the first set of words
-
-        if word in set(words2):
-        # Finds common words
-
-            for word_char_num in range(len(word) - num_kmer+1):
-            # Iterates over characters in common words
-
+            for word_char_num in range(len(word) - num_kmer + 1):
                 kmer = ''
-                count2 = 0
-
                 for kmer_char_num in range(num_kmer):
-                # Builds kner string 
+                    kmer += word[kmer_char_num + word_char_num]
+                kmers2.append(kmer)
+    # Builds kmer string and adds it to the kmers2 list, for FILE2
 
-                    kmer += word[kmer_char_num+word_char_num]
-                
-                word_char_num = kmer_char_num + word_char_num
-                kmers.add(kmer)
-    
-    spaces = ''
-    for _ in range(num_kmer, 13):
-        spaces += ' '
-    # For column spacing 
-    
-    for kmer in kmers:
+
+    for kmer in kmers1:
+        if kmer in kmers2:
+            common_kmers.add(kmer)
+    # Builds a set containing kmers that are in kmers1 and kmers2
+
+    for kmer in common_kmers:
+    # Iterates over the kmers in common_kmers
+
         count1 = 0
         count2 = 0
-        
-        for word in words1:
-            if kmer in word:
+
+        for kmer1 in kmers1:
+            if kmer1 == kmer:
                 count1 += 1
-        
-        for word in words2:
-            if kmer in word:
+        # Counts the number of times the kmer is found in kmers1
+
+        for kmer2 in kmers2:
+            if kmer2 == kmer:
                 count2 += 1
+        # Counts the number of times the kmer is found in kmers2
 
         print(f'{kmer:10}{count1:6}{count2:6}')
+        # Prints the kmer and number of occuarnces for kmers1 and kmers2
+
 
 # --------------------------------------------------
 
