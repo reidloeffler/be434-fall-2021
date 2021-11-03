@@ -20,7 +20,7 @@ def get_args():
         formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 
     parser.add_argument('input_files',
-                        type=str,
+                        type=argparse.FileType('rt'),
                         metavar='FILE',
                         help='Input file(s)',
                         nargs='+')
@@ -48,8 +48,8 @@ def main():
 
     for file_path in input_files:
 
-        input_file = SeqIO.parse(file_path, 'fasta')
-        file_name = os.path.basename(file_path)
+        input_file = SeqIO.parse(file_path.name, 'fasta')
+        file_name = os.path.basename(file_path.name)
         root, ext = os.path.splitext(file_name)
         # Obtains file name, root, and extension from input file
 
@@ -68,15 +68,9 @@ def main():
 
         for line in input_file:
 
-            if track % 2 != 0:
-                print('>' + line.id, file=out_file_1)
-                print(str(line.seq), file=out_file_1)
-            # Prints info from odd lines to the first output file
-
-            else:
-                print('>' + line.id, file=out_file_2)
-                print(str(line.seq), file=out_file_2)
-            # Prints info from even lines to the second output file
+            out_file = out_file_1 if track % 2 != 0 else out_file_2
+            print('>' + line.id, file=out_file)
+            print(str(line.seq), file=out_file)
 
             track += 1
             # Tracks input file line
