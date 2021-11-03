@@ -57,8 +57,10 @@ def main():
             os.mkdir(out_dir)
         # Checks if output directory exist
 
-        out_file_1 = open(os.path.join(out_dir, root + '_1' + ext), 'w', encoding='UTF-8')
-        out_file_2 = open(os.path.join(out_dir, root + '_2' + ext), 'w', encoding='UTF-8')
+        out_file_1 = open(os.path.join(out_dir, root + '_1' + ext),
+                          'w', encoding='UTF-8')
+        out_file_2 = open(os.path.join(out_dir, root + '_2' + ext),
+                          'w', encoding='UTF-8')
         # Builds path for each output file
 
         track = 1
