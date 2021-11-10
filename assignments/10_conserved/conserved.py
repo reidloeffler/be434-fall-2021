@@ -39,37 +39,30 @@ def main():
 
     sequences = dict(enumerate(input_file))
     # Dictionary containing sequences from the input file
-    ref_chars = dict(enumerate(sequences.get(1)))
+    ref_chars = dict(enumerate(sequences.get(0)))
     # Dictionary containing  reference characters for comparison
-    seq_length = len(sequences.get(1))
+    seq_length = len(sequences.get(0).rstrip())
     # Length of the sequences
     output = list(' ' * seq_length)
     # Output string with length that corresponds to the length of the sequences
+    chars = set()
 
     for sequence in sequences.values():
         # Iterates over all sequences
 
-        chars = dict(enumerate(sequence))
+        chars = dict(enumerate(sequence.rstrip()))
         # Dictionary containing characters for comparison
 
         for num, char in chars.items():
             # Iterates over characters in the sequence
 
-            for ref_num, ref_char in ref_chars.items():
-                # Iterates over characters in the reference sequence
-
-                if num == ref_num:
-                    # Identifies corresponding characters by position
-
-                    if char == '\n' and ref_char == '\n':
-                        output[num] = ''
-                    elif char == ref_char and output[num] != 'X':
-                        output[num] = '|'
-                    else:
-                        output[num] = 'X'
-                    # Compares corresponding characters
-                    # Identifies overlapping characters
-                    # Builds output string
+            if char == ref_chars[num] and output[num] != 'X':
+                output[num] = '|'
+            else:
+                output[num] = 'X'
+            # Compares corresponding characters
+            # Identifies overlapping characters
+            # Builds output string
 
     print(''.join(sequences.values()), end='')
     print(''.join(output))
