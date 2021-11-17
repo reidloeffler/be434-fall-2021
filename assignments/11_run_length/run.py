@@ -32,7 +32,7 @@ def get_args():
 def check_input(user_input):
     """ Checks if the user provided a file or a sequence """
 
-    if os.path.exists(user_input) and os.path.isfile(user_input):
+    if os.path.isfile(user_input):
         input_type = 'file'
     else:
         input_type = 'sequence'
@@ -44,22 +44,23 @@ def check_input(user_input):
 
 
 def build_output(sequence):
-    """ Creates and prints compressed sequence """
+    """ Creates a compressed sequence """
 
     count = 1
+    prev_char = ''
     output = ''
 
-    for char_num, char in enumerate(sequence):
-        if count == 1 and char_num != 0:
-            output += sequence[char_num - 1]
-        if char == sequence[char_num - 1]:
+    for char in sequence:
+        if char == prev_char:
             count += 1
         else:
+            output += prev_char
             if count != 1:
                 output += str(count)
             count = 1
+        prev_char = char
 
-    print(output)
+    return output
 
 
 # --------------------------------------------------
@@ -74,12 +75,12 @@ def main():
 
     if input_type == 'sequence':
         sequence = user_input + ' '
-        build_output(sequence)
+        print(build_output(sequence))
 
     if input_type == 'file':
         sequences = open(user_input, 'rt', encoding='UTF-8')
         for sequence in list(sequences):
-            build_output(sequence)
+            print(build_output(sequence))
 
 
 # --------------------------------------------------
